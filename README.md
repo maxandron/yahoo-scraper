@@ -13,3 +13,4 @@ Scrapes the current price from a Yahoo Finance page given a ticker using Seleniu
 - [ ] Add a cache
 - [ ] Predefine a list of tokens to scrape or add some basic authentication
 - [ ] Scrape periodically - not on request
+- [ ] Start geckodriver if it's not running yet

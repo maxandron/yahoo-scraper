@@ -13,34 +13,6 @@ async fn main() {
     // Load the .env file.
     dotenv().ok();
 
-    //// Kill any existing geckodriver processes
-    //println!("Killing existing geckodriver processes if any are running");
-    //let _ = tokio::process::Command::new("pkill")
-    //    .arg("geckodriver")
-    //    .output()
-    //    .await;
-    //
-    //let geckodriver_path = std::env::var("GECKODRIVER_PATH").unwrap_or("geckodriver".to_string());
-    //println!("Running geckodriver ({geckodriver_path})");
-    //let child = tokio::process::Command::new(geckodriver_path)
-    //    .stdout(Stdio::piped())
-    //    .spawn()
-    //    .expect("Failed to start geckodriver");
-    //
-    //println!("Waiting for geckodriver to start...");
-    //let stdout = child.stdout.expect("Failed to get stdout");
-    //
-    //// Combine stdout and stderr into a single stream.
-    //let mut reader = BufReader::new(stdout).lines();
-    //
-    //while let Some(line) = reader.next_line().await.unwrap() {
-    //    println!("Received: {line}");
-    //    if line.contains("Listening") {
-    //        break;
-    //    }
-    //}
-    //println!("Geckodriver started");
-
     println!("Initializing driver...");
     let driver = init_driver().await.unwrap();
 
@@ -48,7 +20,10 @@ async fn main() {
         .route("/price/:ticker", get(scrape_price_handler))
         .with_state(driver);
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
+        .await
+        .unwrap();
+    println!("Listening on: http://127.0.0.1:3000");
     axum::serve(listener, app).await.unwrap();
 }
 

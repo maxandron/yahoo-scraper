@@ -2,10 +2,9 @@ use axum::extract::State;
 use axum::{extract::Path, http::StatusCode, routing::get, Json, Router};
 use dotenv::dotenv;
 use serde::{Deserialize, Serialize};
+use std::error::Error;
 use std::string::String;
-use std::{error::Error, process::Stdio};
 use thirtyfour::WebDriver;
-use tokio::io::{AsyncBufReadExt, BufReader};
 
 #[tokio::main]
 async fn main() {

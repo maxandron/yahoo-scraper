@@ -15,6 +15,7 @@ async fn main() {
 
     println!("Initializing driver...");
     let driver = init_driver().await.unwrap();
+    println!("Driver initialized");
 
     let app = Router::new()
         .route("/price/:ticker", get(scrape_price_handler))
